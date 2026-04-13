@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ravi Kiran — Growth Operator</title>
+<meta name="description" content="VP-level growth operator. Scaled ₹100Cr+ P&L at Zomato. 2x e-commerce revenue in 90 days. Open to anywhere.">
+<meta property="og:title" content="Ravi Kiran — Growth Operator">
+<meta property="og:description" content="I turn high-potential businesses into scaled growth machines.">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   RESET & BASE
+============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --accent:    #FF4982;
+  --accent-dim: rgba(255,73,130,0.12);
+  --accent-border: rgba(255,73,130,0.25);
+  --bg:        #090909;
+  --surface:   #101010;
+  --surface2:  #141414;
+  --border:    rgba(255,255,255,0.06);
+  --border-md: rgba(255,255,255,0.10);
+  --text:      #F0EDE8;
+  --muted:     rgba(240,237,232,0.42);
+  --muted2:    rgba(240,237,232,0.22);
+  --font:      'Satoshi', -apple-system, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* ============================================================
+   CURSOR
+============================================================ */
+.cursor-dot {
+  width: 5px; height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s;
+}
+.cursor-ring {
+  width: 28px; height: 28px;
+  border: 1px solid rgba(255,73,130,0.35);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: left 0.10s ease, top 0.10s ease, width 0.25s, height 0.25s, border-color 0.25s;
+}
+body:hover .cursor-ring { border-color: rgba(255,73,130,0.5); }
+
+/* ============================================================
+   NOISE OVERLAY
+============================================================ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
+
+/* ============================================================
+   NAV
+============================================================ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 22px 56px;
+  border-bottom: 1px solid transparent;
+  transition: all 0.4s ease;
+}
+nav.scrolled {
+  background: rgba(9,9,9,0.88);
+  border-bottom-color: var(--border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 16px 56px;
+}
+.nav-logo {
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text);
+}
+.nav-links {
+  display: flex; gap: 36px; list-style: none;
+}
+.nav-links a {
+  font-size: 13px; color: var(--muted);
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -2px; left: 0; right: 0;
+  height: 1px; background: var(--accent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.25s ease;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-resume {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 22px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  transition: background 0.2s, color 0.2s;
+}
+.nav-resume:hover { background: var(--accent); color: #fff; }
+
+/* ============================================================
+   HERO
+============================================================ */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 56px 88px;
+  position: relative; overflow: hidden;
+}
+
+/* Grid background */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 20%, transparent 100%);
+  mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 20%, transparent 100%);
+}
+
+/* Glow */
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 55% 60% at 75% 35%, rgba(255,73,130,0.07) 0%, transparent 65%);
+}
+
+.hero-bg-num {
+  position: absolute; right: 48px; top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(140px, 20vw, 280px);
+  font-weight: 700; letter-spacing: -0.05em;
+  color: rgba(255,255,255,0.018);
+  line-height: 1; user-select: none;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 860px;
+}
+
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 28px;
+  opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards;
+}
+.hero-eyebrow::before {
+  content: ''; display: block;
+  width: 36px; height: 1px; background: var(--accent);
+}
+
+.hero-name {
+  font-size: clamp(58px, 9vw, 108px);
+  font-weight: 700; line-height: 0.93;
+  letter-spacing: -0.035em;
+  margin-bottom: 28px;
+  opacity: 0; animation: fadeUp 0.9s ease 0.35s forwards;
+}
+.hero-name .accent { color: var(--accent); }
+
+.hero-tagline {
+  font-size: clamp(17px, 1.8vw, 21px);
+  color: var(--muted); font-weight: 400;
+  max-width: 520px; line-height: 1.55;
+  margin-bottom: 48px;
+  opacity: 0; animation: fadeUp 0.9s ease 0.5s forwards;
+}
+
+.hero-actions {
+  display: flex; gap: 16px; align-items: center;
+  flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.9s ease 0.65s forwards;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: var(--accent); color: #fff;
+  padding: 15px 36px; font-size: 14px; font-weight: 500;
+  font-family: var(--font); letter-spacing: 0.05em;
+  border: none; cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+
+.btn-ghost {
+  display: inline-block;
+  background: transparent; color: var(--muted);
+  padding: 14px 36px; font-size: 14px; font-weight: 400;
+  font-family: var(--font); letter-spacing: 0.05em;
+  border: 1px solid var(--border-md); cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.22); }
+
+.hero-scroll-hint {
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  z-index: 2;
+  opacity: 0; animation: fadeIn 1s ease 1.2s forwards;
+}
+.hero-scroll-hint span {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted2);
+}
+.scroll-bar {
+  width: 1px; height: 52px;
+  background: linear-gradient(to bottom, var(--muted2), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%,100% { opacity: 0.25; transform: scaleY(1); }
+  50%      { opacity: 0.8;  transform: scaleY(1.08); }
+}
+
+/* ============================================================
+   NUMBERS BAR
+============================================================ */
+.numbers-bar {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.numbers-inner {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+}
+.num-cell {
+  padding: 52px 40px;
+  border-right: 1px solid var(--border);
+}
+.num-cell:last-child { border-right: none; }
+.num-value {
+  font-size: 52px; font-weight: 700;
+  letter-spacing: -0.04em; line-height: 1;
+  margin-bottom: 10px;
+}
+.num-value em { color: var(--accent); font-style: normal; }
+.num-label { font-size: 13px; color: var(--muted); letter-spacing: 0.03em; line-height: 1.45; }
+
+/* ============================================================
+   SECTION COMMON
+============================================================ */
+section { padding: 128px 56px; }
+
+.s-label {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 20px;
+}
+.s-label::before {
+  content: ''; display: block;
+  width: 28px; height: 1px; background: var(--accent);
+}
+
+.s-title {
+  font-size: clamp(34px, 5vw, 60px);
+  font-weight: 700; letter-spacing: -0.025em;
+  line-height: 1.04; margin-bottom: 0;
+}
+
+/* ============================================================
+   ABOUT
+============================================================ */
+.about-grid {
+  display: grid; grid-template-columns: 1fr 420px;
+  gap: 96px; align-items: start; margin-top: 72px;
+}
+.about-paras p {
+  font-size: 17px; color: var(--muted);
+  line-height: 1.82; margin-bottom: 22px;
+}
+.about-paras p strong { color: var(--text); font-weight: 500; }
+.about-paras p:last-of-type { margin-bottom: 0; }
+
+.about-tags {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 36px;
+}
+.tag {
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 6px 14px;
+  border: 1px solid var(--border-md); color: var(--muted);
+  transition: border-color 0.2s, color 0.2s;
+}
+.tag:hover { border-color: var(--accent); color: var(--accent); }
+
+.about-photo {
+  position: relative;
+}
+.photo-frame {
+  width: 100%; aspect-ratio: 3/4;
+  background: var(--surface2);
+  border: 1px solid var(--border-md);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.photo-frame img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.photo-placeholder-label {
+  font-size: 11px; color: var(--muted2); letter-spacing: 0.1em; text-transform: uppercase;
+}
+.photo-accent-line {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: var(--accent);
+}
+.photo-caption {
+  margin-top: 14px;
+  font-size: 12px; color: var(--muted2); letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   EXPERIENCE
+============================================================ */
+.experience-section { padding-top: 0; }
+.exp-list { margin-top: 72px; }
+
+.exp-item {
+  display: grid; grid-template-columns: 220px 1fr;
+  border-top: 1px solid var(--border);
+  padding: 44px 0;
+  transition: border-top-color 0.3s;
+  cursor: default;
+}
+.exp-item:last-child { border-bottom: 1px solid var(--border); }
+.exp-item:hover { border-top-color: var(--accent); }
+
+.exp-meta { padding-right: 24px; }
+.exp-period {
+  font-size: 12px; color: var(--muted2);
+  letter-spacing: 0.05em; margin-bottom: 6px;
+}
+.exp-co {
+  font-size: 12px; font-weight: 500;
+  color: var(--accent); letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.exp-body {}
+.exp-role {
+  font-size: 22px; font-weight: 700;
+  letter-spacing: -0.015em; margin-bottom: 14px;
+  line-height: 1.2;
+}
+.exp-desc {
+  font-size: 15px; color: var(--muted);
+  line-height: 1.75; max-width: 580px; margin-bottom: 20px;
+}
+.exp-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill {
+  font-size: 12px; padding: 4px 12px;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  color: var(--accent); letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   SKILLS
+============================================================ */
+.skills-section { padding-top: 0; }
+.skills-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+  margin-top: 72px;
+}
+.skill-card {
+  background: var(--bg); padding: 44px 36px;
+  transition: background 0.25s;
+}
+.skill-card:hover { background: var(--surface); }
+.skill-glyph {
+  font-size: 20px; margin-bottom: 24px;
+  color: var(--accent); line-height: 1;
+}
+.skill-name {
+  font-size: 20px; font-weight: 700;
+  letter-spacing: -0.015em; margin-bottom: 12px;
+}
+.skill-desc {
+  font-size: 14px; color: var(--muted); line-height: 1.72;
+}
+
+/* ============================================================
+   COVER LETTER GENERATOR
+============================================================ */
+.generator-section {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 128px 56px;
+}
+.generator-inner { max-width: 760px; }
+.gen-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; margin-top: 56px;
+}
+.gen-field { display: flex; flex-direction: column; gap: 6px; }
+.gen-field.full { grid-column: 1 / -1; }
+.gen-label {
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted);
+}
+.gen-input, .gen-textarea {
+  background: var(--bg);
+  border: 1px solid var(--border-md);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+.gen-input:focus, .gen-textarea:focus {
+  border-color: var(--accent);
+}
+.gen-textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+.gen-textarea.tall { min-height: 120px; }
+
+.gen-btn {
+  margin-top: 20px;
+  width: 100%; padding: 15px;
+  background: var(--accent); color: #fff;
+  border: none; font-family: var(--font);
+  font-size: 14px; font-weight: 500; letter-spacing: 0.06em;
+  cursor: pointer; text-transform: uppercase;
+  transition: opacity 0.2s;
+}
+.gen-btn:hover { opacity: 0.85; }
+.gen-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.gen-status {
+  margin-top: 12px; font-size: 13px;
+  color: var(--muted); text-align: center; min-height: 20px;
+}
+
+.gen-output {
+  margin-top: 36px;
+  border: 1px solid var(--border-md);
+  background: var(--bg);
+  padding: 32px;
+  display: none;
+}
+.gen-output.visible { display: block; }
+.gen-output-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 20px; padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.gen-output-title { font-size: 13px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+.copy-btn {
+  font-size: 12px; padding: 6px 14px; letter-spacing: 0.06em; text-transform: uppercase;
+  border: 1px solid var(--border-md); color: var(--muted);
+  background: transparent; font-family: var(--font); cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+.gen-letter {
+  font-size: 15px; color: var(--text);
+  line-height: 1.82; white-space: pre-wrap;
+  font-family: var(--font);
+}
+
+/* ============================================================
+   CONTACT
+============================================================ */
+.contact-section {
+  border-top: 1px solid var(--border);
+}
+.contact-inner { max-width: 680px; }
+.contact-big-text {
+  font-size: clamp(30px, 4vw, 50px);
+  font-weight: 700; letter-spacing: -0.02em;
+  line-height: 1.12; margin-top: 28px; margin-bottom: 16px;
+}
+.contact-sub {
+  font-size: 17px; color: var(--muted); line-height: 1.65;
+  margin-bottom: 40px; max-width: 500px;
+}
+.contact-email-link {
+  display: inline-block;
+  font-size: clamp(20px, 2.8vw, 30px);
+  font-weight: 500;
+  color: var(--text);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 4px;
+  margin-bottom: 36px;
+  transition: color 0.2s;
+}
+.contact-email-link:hover { color: var(--accent); }
+
+.contact-social { display: flex; gap: 28px; flex-wrap: wrap; }
+.social-link {
+  font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.social-link:hover { color: var(--text); border-bottom-color: var(--accent); }
+
+/* ============================================================
+   FOOTER
+============================================================ */
+footer {
+  padding: 28px 56px;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-l { font-size: 12px; color: var(--muted2); letter-spacing: 0.04em; }
+.footer-r { font-size: 12px; color: var(--muted2); letter-spacing: 0.04em; }
+.footer-r span { color: var(--accent); }
+
+/* ============================================================
+   SCROLL REVEAL
+============================================================ */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.10s; }
+.d2 { transition-delay: 0.20s; }
+.d3 { transition-delay: 0.30s; }
+.d4 { transition-delay: 0.40s; }
+.d5 { transition-delay: 0.50s; }
+
+/* ============================================================
+   KEYFRAMES
+============================================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 900px) {
+  nav { padding: 18px 24px; }
+  nav.scrolled { padding: 14px 24px; }
+  .nav-links { display: none; }
+  .hero { padding: 0 24px 80px; }
+  section { padding: 80px 24px; }
+  .generator-section { padding: 80px 24px; }
+  .contact-section { padding: 80px 24px; }
+  footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+  .numbers-inner { grid-template-columns: repeat(2, 1fr); }
+  .num-cell { border-right: none; border-bottom: 1px solid var(--border); }
+  .num-cell:nth-child(odd) { border-right: 1px solid var(--border); }
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .about-photo { order: -1; max-width: 320px; }
+  .exp-item { grid-template-columns: 1fr; gap: 12px; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .gen-grid { grid-template-columns: 1fr; }
+  .cursor-dot, .cursor-ring { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ============================================================
+     NAV
+============================================================ -->
+<nav id="nav">
+  <div class="nav-logo">RK</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#generate">Cover Letter</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <!-- 
+      RESUME: Replace href="#" with the path to your uploaded PDF.
+      If deploying on Vercel, place resume.pdf in the root folder
+      and set href="resume.pdf" download="Ravi_Kiran_Resume.pdf"
+    -->
+    <a href="Ravi_Kiran.pdf" download="Ravi_Kiran_Resume.pdf" class="nav-resume">Resume ↓</a>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="hero" id="top">
+  <div class="hero-bg-num">01</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Growth Operator &nbsp;·&nbsp; VP-level &nbsp;·&nbsp; Open to Anywhere</div>
+    <h1 class="hero-name">Ravi<br><span class="accent">Kiran.</span></h1>
+    <p class="hero-tagline">I turn high-potential businesses into scaled growth machines — across P&amp;L, product, and people.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Let's talk</a>
+      <a href="#experience" class="btn-ghost">See my work →</a>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <div class="scroll-bar"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ============================================================
+     NUMBERS BAR
+============================================================ -->
+<div class="numbers-bar">
+  <div class="numbers-inner">
+    <div class="num-cell reveal">
+      <div class="num-value">₹100<em>Cr+</em></div>
+      <div class="num-label">P&amp;L owned across Tamil Nadu at Zomato</div>
+    </div>
+    <div class="num-cell reveal d1">
+      <div class="num-value">2<em>x</em></div>
+      <div class="num-label">Online revenue contribution in 90 days</div>
+    </div>
+    <div class="num-cell reveal d2">
+      <div class="num-value">50<em>+</em></div>
+      <div class="num-label">Cross-functional team members led</div>
+    </div>
+    <div class="num-cell reveal d3">
+      <div class="num-value">30<em>%</em></div>
+      <div class="num-label">Consistent MoM GMV growth delivered</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     ABOUT
+============================================================ -->
+<section id="about">
+  <div class="s-label reveal">About</div>
+  <h2 class="s-title reveal d1">The unusual path<br>that made me useful.</h2>
+  <div class="about-grid">
+    <div class="about-paras">
+      <p class="reveal d1">I started in <strong>mechanical engineering</strong> — Masters from HAN University, Netherlands, specialising in vehicle dynamics and autonomous systems. Then I pivoted hard. Not because I failed at engineering, but because I found something more interesting: the mechanics of how businesses grow.</p>
+      <p class="reveal d2">At Zomato, I moved from <strong>product manager to CEO of Tamil Nadu</strong> in under two years — owning a ₹100Cr+ P&amp;L, 12 cities, 50+ people, and end-to-end supply, ops, logistics, and product. Each step was earned by combining data instinct with operational speed.</p>
+      <p class="reveal d3">At Shree Anandhaas (backed by A91 Partners), I took a beloved traditional brand and <strong>doubled its digital contribution in 3 months</strong> — building the e-commerce stack, launching RFID quick-checkout, and defining the brand language from scratch.</p>
+      <p class="reveal d4">What makes me different isn't breadth for its own sake. It's the ability to move fluidly between <strong>product thinking, commercial instinct, and people leadership</strong> — and make them work as one system, not three silos. I'm drawn to fast-moving businesses that need someone who can <strong>think in systems and execute in sprints</strong>.</p>
+      <div class="about-tags reveal d5">
+        <span class="tag">P&amp;L Ownership</span>
+        <span class="tag">E-commerce</span>
+        <span class="tag">Quick Commerce</span>
+        <span class="tag">D2C</span>
+        <span class="tag">Gen AI Products</span>
+        <span class="tag">Growth Strategy</span>
+        <span class="tag">GTM</span>
+        <span class="tag">Product Management</span>
+        <span class="tag">Customer Engagement</span>
+        <span class="tag">Marketplace</span>
+        <span class="tag">Cross-functional Leadership</span>
+      </div>
+    </div>
+    <div class="about-photo reveal d2">
+      <!--
+        PHOTO: Replace the placeholder below with your actual photo.
+        1. Place your photo file (e.g. photo.jpg) in the same folder as index.html
+        2. Replace the photo-frame div content with: <img src="photo.jpg" alt="Ravi Kiran">
+      -->
+      <div class="photo-frame">
+        <span class="photo-placeholder-label">Add your photo here</span>
+        <div class="photo-accent-line"></div>
+      </div>
+      <p class="photo-caption">Ravi Kiran &nbsp;·&nbsp; Coimbatore, India</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     EXPERIENCE
+============================================================ -->
+<section id="experience" class="experience-section">
+  <div class="s-label reveal">Experience</div>
+  <h2 class="s-title reveal d1">Where I've moved<br>the numbers.</h2>
+  <div class="exp-list">
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">Sep 2025 — Present</div>
+        <div class="exp-co">Shree Anandhaas</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Vice President — Special Projects</div>
+        <p class="exp-desc">Joined to lead e-commerce end-to-end for a VC-backed (A91 Partners) traditional sweets & snacks brand entering its digital growth phase. Owned online ordering, quick commerce, and the D2C website. Launched RFID-based quick checkout to streamline high-volume retail. Defined and standardised brand language across all customer-facing communications.</p>
+        <div class="exp-pills">
+          <span class="pill">2x online contribution</span>
+          <span class="pill">5% → 10% digital revenue in 3 months</span>
+          <span class="pill">30% MoM business growth</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">May 2025 — Sep 2025</div>
+        <div class="exp-co">Zomato</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">CEO — Tamil Nadu</div>
+        <p class="exp-desc">Led end-to-end supply, operations, logistics, and product across Tamil Nadu. Oversaw 12 cities with ₹100Cr+ monthly turnover. Managed a cross-functional team of 50+ members. Drove consistent GMV growth, improved EBITDA margins significantly within 2 months, and cut per-mile logistics costs through optimised routing and fleet planning.</p>
+        <div class="exp-pills">
+          <span class="pill">₹100Cr+ P&amp;L</span>
+          <span class="pill">15% MoM GMV growth</span>
+          <span class="pill">20% EBITDA improvement</span>
+          <span class="pill">10% logistics cost reduction</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">Oct 2024 — May 2025</div>
+        <div class="exp-co">Zomato</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">City Growth Lead</div>
+        <p class="exp-desc">Led strategic growth initiatives across POI activation, serviceability expansion, and ad delivery optimisation. Directed cross-functional teams to achieve the highest-ever absolute EBITDA and a record-high market share. Drove consistent 20% MoM growth through Q3 2024 and cut average delivery time by 5 minutes through metric-level optimisation.</p>
+        <div class="exp-pills">
+          <span class="pill">30% monthly GOV growth</span>
+          <span class="pill">Record EBITDA</span>
+          <span class="pill">20% MoM consistent growth</span>
+          <span class="pill">5-min delivery time reduction</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">Jul 2024 — Oct 2024</div>
+        <div class="exp-co">Zomato</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Product Manager — Gen AI & Categories</div>
+        <p class="exp-desc">Spearheaded three verticals: Search & Discovery for Categories, Gen AI-powered cart planning, and healthy nudges for conscious ordering. Led a team of 5 engineers and 3 product analysts. Scaled order scheduling nationwide. Improved search-to-order conversion across Mithai, Ice Cream, and Desserts.</p>
+        <div class="exp-pills">
+          <span class="pill">30% search-to-order improvement</span>
+          <span class="pill">30% checkout uplift via AI carts</span>
+          <span class="pill">75% merchant rejection reduction</span>
+          <span class="pill">20% scheduling adoption increase</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">Jul 2023 — Jul 2024</div>
+        <div class="exp-co">Zomato</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Program Manager — Customer Engagement & Growth</div>
+        <p class="exp-desc">Directed the festival growth charter — customer activation, lapsed user resurrection, and retention. Built a time-limited coupon engine, launched POI-level campaigns across colleges and workplaces, developed behavioural targeting systems, and shipped a viral food persona matching game that drove significant social media engagement.</p>
+        <div class="exp-pills">
+          <span class="pill">40% lapsed user resurrection</span>
+          <span class="pill">30% new user acquisition</span>
+          <span class="pill">30% GOV from coupon engine</span>
+          <span class="pill">15% retention boost</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SKILLS
+============================================================ -->
+<section id="skills" class="skills-section">
+  <div class="s-label reveal">What I bring</div>
+  <h2 class="s-title reveal d1">Three skills.<br>One rare combination.</h2>
+  <div class="skills-grid">
+    <div class="skill-card reveal d1">
+      <div class="skill-glyph">⬡</div>
+      <div class="skill-name">Business & P&L</div>
+      <p class="skill-desc">Revenue ownership, margin management, and market expansion. I think in unit economics — from GOV and EBITDA to per-mile delivery cost — and move quickly from insight to execution. Comfortable owning large numbers and defending them.</p>
+    </div>
+    <div class="skill-card reveal d2">
+      <div class="skill-glyph">◈</div>
+      <div class="skill-name">Product & AI</div>
+      <p class="skill-desc">End-to-end product roadmaps, Gen AI applications, data-led customer journey design, and search & discovery systems. From 0→1 concept to scaling to millions of users — with a cross-functional team behind me.</p>
+    </div>
+    <div class="skill-card reveal d3">
+      <div class="skill-glyph">◉</div>
+      <div class="skill-name">People & Operations</div>
+      <p class="skill-desc">Built and led cross-functional teams of 50+. Aligned product, ops, supply, and commercial teams toward a single growth goal. I remove friction between functions, not just within them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     COVER LETTER GENERATOR
+============================================================ -->
+<section class="generator-section" id="generate">
+  <div class="generator-inner">
+    <div class="s-label reveal">AI Tool</div>
+    <h2 class="s-title reveal d1">Generate a cover letter<br>tailored to you.</h2>
+    <p style="margin-top:16px; font-size:15px; color:var(--muted); line-height:1.7; max-width:540px;" class="reveal d2">
+      If you're a recruiter or hiring manager — fill in your company and role below. This tool uses my actual background to write a letter specific to your context. Takes 10 seconds.
+    </p>
+
+    <div class="gen-grid">
+      <div class="gen-field">
+        <label class="gen-label">Your company</label>
+        <input class="gen-input" id="genCompany" type="text" placeholder="e.g. Swiggy" />
+      </div>
+      <div class="gen-field">
+        <label class="gen-label">Role offered / explored</label>
+        <input class="gen-input" id="genRole" type="text" placeholder="e.g. VP Growth" />
+      </div>
+      <div class="gen-field">
+        <label class="gen-label">Your name (optional)</label>
+        <input class="gen-input" id="genRecruiter" type="text" placeholder="e.g. Priya Sharma" />
+      </div>
+      <div class="gen-field">
+        <label class="gen-label">Your industry / vertical</label>
+        <input class="gen-input" id="genIndustry" type="text" placeholder="e.g. Quick Commerce, D2C, SaaS" />
+      </div>
+      <div class="gen-field full">
+        <label class="gen-label">What you're looking for in this hire</label>
+        <textarea class="gen-textarea tall" id="genContext" placeholder="e.g. Someone who can own revenue growth end-to-end, has worked in high-velocity consumer environments, and can lead both product and operations teams..."></textarea>
+      </div>
+    </div>
+
+    <button class="gen-btn" id="genBtn" onclick="generateLetter()">Generate Cover Letter</button>
+    <p class="gen-status" id="genStatus"></p>
+
+    <div class="gen-output" id="genOutput">
+      <div class="gen-output-header">
+        <span class="gen-output-title" id="genOutputLabel">Cover Letter</span>
+        <button class="copy-btn" onclick="copyLetter()">Copy Text</button>
+      </div>
+      <div class="gen-letter" id="genLetter"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+============================================================ -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="s-label reveal">Contact</div>
+    <h2 class="contact-big-text reveal d1">Let's build<br>something fast.</h2>
+    <p class="contact-sub reveal d2">
+      Open to VP / Head of Growth / GM / COO roles globally. Available to relocate or work remotely from anywhere. If you're building something that needs to move fast — let's talk.
+    </p>
+    <a href="mailto:ravikiran96@gmail.com" class="contact-email-link reveal d3">ravikiran96@gmail.com</a>
+    <div class="contact-social reveal d4">
+      <a href="https://linkedin.com/in/ravikiran96" target="_blank" class="social-link">LinkedIn ↗</a>
+      <a href="tel:+919384899912" class="social-link">+91 93848 99912</a>
+      <a href="Ravi_Kiran.pdf" download="Ravi_Kiran_Resume.pdf" class="social-link">Download Resume ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer>
+  <div class="footer-l">© 2026 Ravi Kiran</div>
+  <div class="footer-r">Built to move fast. <span>Open to anywhere.</span></div>
+</footer>
+
+<!-- ============================================================
+     SCRIPTS
+============================================================ -->
+<script>
+/* --- Cursor --- */
+const dot  = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+if (dot && ring) {
+  document.addEventListener('mousemove', e => {
+    dot.style.left  = e.clientX + 'px';
+    dot.style.top   = e.clientY + 'px';
+    ring.style.left = e.clientX + 'px';
+    ring.style.top  = e.clientY + 'px';
+  });
+}
+
+/* --- Nav scroll --- */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 48);
+}, { passive: true });
+
+/* --- Scroll reveal --- */
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => revealObserver.observe(el));
+
+/* --- Cover Letter Generator --- */
+async function generateLetter() {
+  const company   = document.getElementById('genCompany').value.trim();
+  const role      = document.getElementById('genRole').value.trim();
+  const recruiter = document.getElementById('genRecruiter').value.trim();
+  const industry  = document.getElementById('genIndustry').value.trim();
+  const context   = document.getElementById('genContext').value.trim();
+
+  if (!company || !role) {
+    document.getElementById('genStatus').textContent = 'Please enter the company and role.';
+    return;
+  }
+
+  const btn    = document.getElementById('genBtn');
+  const status = document.getElementById('genStatus');
+  btn.disabled = true;
+  status.textContent = 'Writing your letter...';
+
+  const salutation = recruiter ? `Dear ${recruiter},` : 'Dear Hiring Team,';
+
+  const RAVI_BIO = `
+Name: Ravi Kiran
+Contact: ravikiran96@gmail.com | +91 9384899912 | LinkedIn: linkedin.com/in/ravikiran96
+Location: Coimbatore, India. Open to relocate or work remotely anywhere globally.
+
+Summary: Growth operator with strong P&L ownership and a track record of scaling businesses fast. Combines product thinking, commercial instinct, and people leadership into one rare skill set.
+
+Experience:
+
+1. Vice President — Special Projects | Shree Anandhaas Sweets & Snacks (backed by A91 Partners) | Sep 2025 – Present
+- Led online revenue channels: online ordering, quick commerce, D2C website
+- Doubled online contribution from 5% to 10% of total revenue within 3 months
+- Launched RFID-based scanning and quick checkout for high-volume retail
+- Defined and standardised brand language across all customer-facing communications
+- Business grew 30% MoM overall during tenure
+
+2. CEO — Tamil Nadu | Zomato | May 2025 – Sep 2025
+- Led end-to-end supply, operations, logistics, and product for Tamil Nadu
+- Oversaw 12 cities, ₹100Cr+ monthly turnover, team of 50+ members
+- 15% MoM GMV growth, 20% EBITDA margin improvement in 2 months
+- Reduced per-mile logistics cost by 10% via optimised routing and fleet planning
+
+3. City Growth Lead | Zomato | Oct 2024 – May 2025
+- Led POI activation, serviceability expansion, ad delivery optimisation
+- Achieved highest-ever absolute EBITDA and record market share
+- Consistent 20% MoM growth through Q3 2024
+- Reduced average delivery time by 5 minutes through metric-level analysis
+
+4. Product Manager — Gen AI & Categories | Zomato | Jul 2024 – Oct 2024
+- Built Gen AI cart planning, Search & Discovery, and healthy nudge systems
+- Led 5 engineers + 3 product analysts
+- 30% improvement in search-to-order metric
+- 30% increase in large-order checkout completion
+- 75% reduction in merchant rejections via scaled order scheduling
+
+5. Program Manager — Customer Engagement & Growth | Zomato | Jul 2023 – Jul 2024
+- Built time-limited coupon engine: 30% GOV increase, 15% retention boost
+- Directed festival charter: 40% lapsed user resurrection, 30% new user acquisition
+- Launched POI-level campaigns, 5% market share shift among target segments
+- Developed behavioural targeting and viral food persona matching game
+
+Education:
+- Masters in Automotive Systems (Vehicle Dynamics & Autonomous Driving) — HAN University, Netherlands
+- BTech Mechanical Engineering — SRM University
+  `.trim();
+
+  const prompt = `You are writing a professional cover letter on behalf of Ravi Kiran for a specific opportunity.
+
+Here is Ravi's complete background:
+${RAVI_BIO}
+
+The recruiter/company context:
+- Company: ${company}
+- Role being explored: ${role}
+${industry ? `- Industry/vertical: ${industry}` : ''}
+${context ? `- What they're looking for: ${context}` : ''}
+
+Write a sharp, 3-paragraph cover letter. Start with: "${salutation}"
+
+Paragraph 1 (Hook): Connect Ravi's specific achievements to this company's likely growth stage or priorities. Make it feel like you've done the research.
+Paragraph 2 (Evidence): Cite 2-3 concrete, specific results from Ravi's background that directly map to what this company and role needs. Be precise — use numbers.
+Paragraph 3 (Close): Brief, confident. Mention he is open to working anywhere — remote or relocation. Express genuine interest in a conversation.
+
+Sign off: "Best regards,\nRavi Kiran\nravikiran96@gmail.com | +91 9384899912"
+
+Rules: No clichés. No "I am writing to express my interest." No filler. Be direct, specific, and human. The letter should feel written by someone who knows their worth.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    const text = (data.content || []).map(b => b.text || '').join('');
+
+    document.getElementById('genLetter').textContent = text;
+    document.getElementById('genOutputLabel').textContent = `${company} — ${role}`;
+    document.getElementById('genOutput').classList.add('visible');
+    status.textContent = '';
+    document.getElementById('genOutput').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch (err) {
+    status.textContent = 'Something went wrong. Please try again.';
+    console.error(err);
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function copyLetter() {
+  const text = document.getElementById('genLetter').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = orig, 2000);
+  });
+}
+</script>
+</body>
+</html>
