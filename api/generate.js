@@ -47,7 +47,7 @@ owned Rs.100Cr+ P&L across 12 cities with 50+ team, drove 15% MoM GMV growth and
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
+        model: 'claude-sonnet-4-6',
         max_tokens: 450,
         temperature: 0.2,
         system: [
