@@ -12,10 +12,9 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
---accent:         #CC5500;
---accent-dim:     rgba(204,85,0,0.12);
---accent-border:  rgba(204,85,0,0.25);
---accent-gradient: linear-gradient(90deg, #C65D3B, #D76E4D, #E89E3A);
+  --accent:         #FF4982;
+  --accent-dim:     rgba(255,73,130,0.12);
+  --accent-border:  rgba(255,73,130,0.25);
   --bg:             #090909;
   --surface:        #101010;
   --surface2:       #141414;
@@ -55,13 +54,13 @@ nav.scrolled { background: rgba(9,9,9,0.88); border-bottom-color: var(--border);
 .hero-name .accent { color: var(--accent); }
 .hero-tagline { font-size: clamp(17px, 1.8vw, 21px); color: var(--muted); max-width: 520px; line-height: 1.55; margin-bottom: 48px; opacity: 0; animation: fadeUp 0.9s ease 0.5s forwards; }
 .hero-actions { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.9s ease 0.65s forwards; }
-.btn-primary { display: inline-block; background: var(--accent-gradient); color: #fff; padding: 15px 36px; font-size: 14px; font-weight: 500; font-family: var(--font); letter-spacing: 0.05em; border: none; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+.btn-primary { display: inline-block; background: var(--accent); color: #fff; padding: 15px 36px; font-size: 14px; font-weight: 500; font-family: var(--font); letter-spacing: 0.05em; border: none; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
 .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
 .btn-ghost { display: inline-block; background: transparent; color: var(--muted); padding: 14px 36px; font-size: 14px; font-family: var(--font); letter-spacing: 0.05em; border: 1px solid var(--border-md); cursor: pointer; transition: color 0.2s, border-color 0.2s; }
 .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.22); }
 .hero-scroll-hint { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 2; opacity: 0; animation: fadeIn 1s ease 1.2s forwards; }
 .hero-scroll-hint span { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted2); }
-.scroll-bar { width: 1px; height: 52px; background: linear-gradient(to bottom, #C65D3B, transparent); animation: scrollPulse 2s ease-in-out infinite; }
+.scroll-bar { width: 1px; height: 52px; background: linear-gradient(to bottom, var(--muted2), transparent); animation: scrollPulse 2s ease-in-out infinite; }
 @keyframes scrollPulse { 0%,100% { opacity: 0.25; transform: scaleY(1); } 50% { opacity: 0.8; transform: scaleY(1.08); } }
 .numbers-bar { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .numbers-inner { display: grid; grid-template-columns: repeat(4, 1fr); }
@@ -85,7 +84,7 @@ section { padding: 128px 56px; }
 .photo-frame { width: 100%; aspect-ratio: 3/4; background: var(--surface2); border: 1px solid var(--border-md); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
 .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
 .photo-placeholder-label { font-size: 11px; color: var(--muted2); letter-spacing: 0.1em; text-transform: uppercase; }
-.photo-accent-line { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--accent-gradient); }
+.photo-accent-line { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--accent); }
 .photo-caption { margin-top: 14px; font-size: 12px; color: var(--muted2); letter-spacing: 0.06em; text-transform: uppercase; }
 .experience-section { padding-top: 0; }
 .exp-list { margin-top: 72px; }
@@ -116,7 +115,7 @@ section { padding: 128px 56px; }
 .gen-input:focus, .gen-textarea:focus { border-color: var(--accent); }
 .gen-textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
 .gen-textarea.tall { min-height: 120px; }
-.gen-btn { margin-top: 20px; width: 100%; padding: 15px; background: var(--accent-gradient; color: #fff; border: none; font-family: var(--font); font-size: 14px; font-weight: 500; letter-spacing: 0.06em; cursor: pointer; text-transform: uppercase; transition: opacity 0.2s; }
+.gen-btn { margin-top: 20px; width: 100%; padding: 15px; background: var(--accent); color: #fff; border: none; font-family: var(--font); font-size: 14px; font-weight: 500; letter-spacing: 0.06em; cursor: pointer; text-transform: uppercase; transition: opacity 0.2s; }
 .gen-btn:hover { opacity: 0.85; }
 .gen-btn:disabled { opacity: 0.45; cursor: not-allowed; }
 .gen-status { margin-top: 12px; font-size: 13px; color: var(--muted); text-align: center; min-height: 20px; }
