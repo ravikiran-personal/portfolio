@@ -1023,17 +1023,14 @@ Sign off: "Best regards,\nRavi Kiran\nravikiran96@gmail.com | +91 9384899912"
 Rules: No clichés. No "I am writing to express my interest." No filler. Be direct, specific, and human. The letter should feel written by someone who knows their worth.`;
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    const data = await res.json();
-    const text = (data.content || []).map(b => b.text || '').join('');
+    const res = await fetch('/api/generate', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ company, role, recruiter, industry, context })
+});
+
+const data = await res.json();
+const text = data.letter || '';
 
     document.getElementById('genLetter').textContent = text;
     document.getElementById('genOutputLabel').textContent = `${company} — ${role}`;
