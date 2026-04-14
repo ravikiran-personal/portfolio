@@ -1,6 +1,7 @@
 {
   "name": "ravi-kiran-portfolio",
   "version": "1.0.0",
+
   "description": "Portfolio website for Ravi Kiran - Growth Operator",
   "private": true,
   "scripts": {
@@ -9,5 +10,10 @@
   },
   "dependencies": {
     "@vercel/speed-insights": "^1.0.0"
+
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1",
+    "node-fetch": "^2.6.9"
+
   }
 }
